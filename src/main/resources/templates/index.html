@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<meta charset="ISO-8859-1">
+<title>Kunal Khosla Assignment 1</title>
+<style>
+select {
+	width: 200px;
+	height: 40px;
+}
+
+input {
+	width: 200px;
+	height: 40px;
+}
+
+#list td, th {
+	padding: 10px;
+	font-size: 25px;
+}
+</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<h1>MOVIE DATA</h1> <label>Sort By: </label> <a
+				class="btn btn-danger"
+				th:href="@{/sortMovies/rating/}+${searchText}+@{/}+${searchOption}">Rating</a>&nbsp;&nbsp;
+				<a class="btn btn-danger"
+				th:href="@{/sortMovies/yearReleased/}+${searchText}+@{/}+${searchOption}">Year
+					Released</a>&nbsp;&nbsp; <a class="btn btn-danger"
+				th:href="@{/sortMovies/genre/}+${searchText}+@{/}+${searchOption}">Genre</a>
+			</td>
+			<td style="padding-left: 130px;">
+
+				<form action="" th:action="@{/searchMovies}" method="get">
+					<label style="font-family: helvetica; font-size: 20px;"
+						for="searchOption">Search Movies By:</label> <select
+						name="searchOption" id="searchOption">
+						<option value="title">Title</option>
+						<option value="director">Director</option>
+						<option value="yearReleased">Year Released</option>
+						<option value="genre">Genre</option>
+					</select> <input type="text" name="searchText" required /> <input
+						type="submit" class="btn btn-info" value="submit" />
+				</form> <a href="/" class="btn btn-dark">Full Movie List</a>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table id="list" class="table-hover table-striped" style="width: 100%">
+		<tr>
+			<th>Title</th>
+			<th>Genre</th>
+			<th>Director</th>
+			<th>Year Released</th>
+			<th>Rating</th>
+		</tr>
+
+		<tr th:each="movie:${movieList}">
+			<td th:text="${movie.title}">exex</td>
+			<td th:text="${movie.genre}">Action</td>
+			<td th:text="${movie.director}">MK Sharma</td>
+			<td th:text="${movie.yearReleased}">1999</td>
+			<td th:text="${movie.rating}">3.5</td>
+			<td><a th:href="@{/viewMovieReview/}+${movie.id}">View/Add Movie
+					Reviews </a></td>
+		</tr>
+	</table>
+
+</body>
+</html>

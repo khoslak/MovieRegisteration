@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+crossorigin="anonymous">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width ,initial-scale=1.0"/>
+<meta name="author" content="Kunal Khosla"/> 
+<title>Movie Reviews </title>
+<style>
+body
+{
+
+margin:30px;}</style>
+</head>
+<body>
+
+<table>
+<tr>
+<td>
+<h1>MOVIE REVIEWS</h1>
+
+<label>Sort By: </label>
+<a class="btn btn-danger" th:href="@{/sortMovies/rating/}+${searchText}+@{/}+${searchOption}" >Rating</a>&nbsp;&nbsp;
+<a class="btn btn-danger" th:href="@{/sortMovies/yearReleased/}+${searchText}+@{/}+${searchOption}">Year Released</a>&nbsp;&nbsp;
+<a class="btn btn-danger" th:href="@{/sortMovies/genre/}+${searchText}+@{/}+${searchOption}">Genre</a>
+</td>
+<td style="padding-left:130px;">
+
+<form action="" th:action="@{/searchMovies}" method="get">
+<label style="font-family:helvetica;font-size:20px; " for="searchOption">Search Movies By:</label>
+<select  name="searchOption" id="searchOption">
+<option value="title">Title</option>
+<option value="director">Director</option>
+<option value="yearReleased">Year Released</option>
+<option value="genre">Genre</option>
+</select>
+<input type="text" name="searchText" required />
+<input type="submit" class="btn btn-info" value="submit"/>
+</form>
+
+<a href="/" class="btn btn-dark">Full Movie List</a></td>
+</tr>
+</table>
+<br>
+<hr>
+
+<h1 class="display-1" th:text="${movie.title}" >Movie Title</h1>
+<div th:each="m:${movieReviewList}">
+<blockquote th:inline="text" class="blockquote bg-faded text-info" >
+[[${m.movieReview}]]
+<footer th:text="${m.name}" class="blockquote-footer">
+</footer>
+</blockquote>
+</div>
+
+
+
+<hr>
+<h1 class="display-3"  >Add a Review</h1>
+<form class="form-group" th:action="@{/addMovieReview/}+${movie.id}" method="post">
+Enter the Name:- <input class="form-control" type="text" name="name" /><br /><br/>
+Enter Your Review Here :-<textarea class="form-control" rows="6" cols="50" name="mreview" >
+</textarea>
+<br>
+<input class="btn btn-danger" type="submit" value="Submit"/>
+</form>
+
+<a href="/">Back To Home</a>
+
+</body>
+
+</html>
